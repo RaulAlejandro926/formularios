@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios HTML - Práctica Interactiva</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #eef2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .student-header {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-left: 6px solid #2563eb;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .student-header h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .field-group {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field-group label {
+            font-weight: bold;
+            min-width: 140px;
+        }
+
+        .field-group input {
+            padding: 8px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .form-card {
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .form-card h3 {
+            margin-top: 0;
+            color: #1e293b;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            padding: 8px 12px;
+            margin: 6px 0 12px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .btn-action {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+
+        .btn-submit {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-reset {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-print {
+            background-color: #10b981;
+            color: white;
+            font-size: 1rem;
+            padding: 12px 24px;
+            margin-bottom: 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-print:hover {
+            background-color: #059669;
+        }
+
+        fieldset {
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #2563eb;
+            padding: 0 6px;
+        }
+
+        .alert-msg {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert-reset {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        @media print {
+            .btn-print, .alert-msg {
+                display: none !important;
+            }
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .form-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+            input[type="text"], input[type="password"], input[type="email"], select, textarea {
+                border: 1px solid #aaa;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <button class="btn-print" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Imprimir / Guardar en PDF
+    </button>
+
+    <header class="student-header">
+        <h2>Datos del Alumno</h2>
+        <div class="field-group">
+            <label for="student_name">Nombre Completo:</label>
+            <input type="text" id="student_name" placeholder="Escribe tu nombre aquí...">
+        </div>
+        <div class="field-group">
+            <label for="student_subject">Materia:</label>
+            <input type="text" id="student_subject" value="Desarrollo Web / Tecnologías de la Información">
+        </div>
+        <div class="field-group">
+            <label for="student_date">Fecha:</label>
+            <input type="date" id="student_date">
+        </div>
+    </header>
+
+    <h1>Formularios</h1>
+    <p>Un formulario permite al visitante cargar datos y que sean enviados al servidor.</p>
+    <p>El HTML no tiene la responsabilidad de registrar los datos en el servidor, esta actividad se delega a traves de un lenguaje que se ejecute en el servidor (PHP, ASP, ASP.NET, Node, etc.)</p>
+
+    <section class="form-card">
+        <h3>Ejemplo basico</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre" size="20"><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario para contraseñas</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu usuario:
+            <input type="text" name="usuario"><br>
+            Ingresa tu contraseña:
+            <input type="password" name="pass"><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario con text area</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br>
+            Ingresa tu correo:
+            <input type="email" name="correo"><br>
+            Ingresa tus comentarios:<br>
+            <textarea name="comentarios" rows="3" cols="30" placeholder="Escribe tus comentarios aquí..."></textarea><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formularios con checkbox</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            Selecciona los lenguajes que conozcas:<br>
+            <input type="checkbox" name="Java" id="cb_java"> <label for="cb_java">Java</label><br>
+            <input type="checkbox" name="Python" id="cb_py"> <label for="cb_py">Python</label><br>
+            <input type="checkbox" name="C#" id="cb_cs"> <label for="cb_cs">C#</label><br>
+            <input type="checkbox" name="Flutter" id="cb_fl"> <label for="cb_fl">Flutter</label><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formularios con Radioboton</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            Selecciona el maximo de estudios que tienes:<br>
+            <input type="radio" name="estudios" value="1" id="r1"> <label for="r1">Sin estudios</label><br>
+            <input type="radio" name="estudios" value="2" id="r2"> <label for="r2">Primaria</label><br>
+            <input type="radio" name="estudios" value="3" id="r3"> <label for="r3">Secundaria</label><br>
+            <input type="radio" name="estudios" value="4" id="r4"> <label for="r4">Preparatoria</label><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formularios con seleccion</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            Selecciona tu pais:
+            <select name="pais">
+                <option value="">-- Seleccionar --</option>
+                <option value="1">Argentina</option>
+                <option value="2">España</option>
+                <option value="3">Mexico</option>
+                <option value="4">Guatemala</option>
+                <option value="5">Honduras</option>
+                <option value="6">El Salvador</option>
+                <option value="7">Venezuela</option>
+                <option value="8">Colombia</option>
+            </select><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario con botones</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar <i class="fa-regular fa-paper-plane"></i></button>
+            <button type="reset" class="btn-action btn-reset">Borrar <i class="fa-solid fa-trash"></i></button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario con archivos</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            <input type="file" name="archivo"><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar <i class="fa-regular fa-paper-plane"></i></button>
+            <button type="reset" class="btn-action btn-reset">Borrar <i class="fa-solid fa-trash"></i></button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario con campos ocultos</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            <input type="hidden" name="hora" value="3:30">
+            Ingresa tu nombre:
+            <input type="text" name="nombre"><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar <i class="fa-regular fa-paper-plane"></i></button>
+            <button type="reset" class="btn-action btn-reset">Borrar <i class="fa-solid fa-trash"></i></button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formularios con agrupamiento</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            <fieldset>
+                <legend>Datos personales</legend>
+                Nombre y apellido:
+                <input type="text" name="nombre_apellido"><br>
+                Documento valido:
+                <input type="file" name="documento"><br>
+                Fecha de nacimiento:
+                <input type="date" name="fecha_nacimiento">
+            </fieldset>
+
+            <fieldset>
+                <legend>Datos de estudio:</legend>
+                Nombre de la escuela:
+                <input type="text" name="escuela"><br>
+                Certificado valido:
+                <input type="file" name="certificado"><br>
+                Fecha de egreso:
+                <input type="date" name="fecha_egreso">
+            </fieldset>
+
+            <br>
+            <button type="submit" class="btn-action btn-submit">Enviar <i class="fa-regular fa-paper-plane"></i></button>
+            <button type="reset" class="btn-action btn-reset">Borrar <i class="fa-solid fa-trash"></i></button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h3>Formulario con limitaciones</h3>
+        <form onsubmit="handleFormSubmit(event, this)" onreset="handleFormReset(this)">
+            Ingresa tu nombre:
+            <input type="text" name="nombre" disabled value="Campo deshabilitado"><br>
+            Contraseña (máx 5 caracteres):
+            <input type="password" name="pass" maxlength="5"><br>
+            Comentarios:<br>
+            <textarea name="comentarios" readonly rows="3" cols="35">Este es mi comentario y no se puede borrar</textarea><br><br>
+            <button type="submit" class="btn-action btn-submit">Enviar</button>
+            <button type="reset" class="btn-action btn-reset">Borrar</button>
+            <div class="alert-msg"></div>
+        </form>
+    </section>
+
+</div>
+
+<script>
+    document.getElementById('student_date').valueAsDate = new Date();
+
+    function handleFormSubmit(event, form) {
+        event.preventDefault();
+        const alertBox = form.querySelector('.alert-msg');
+        alertBox.className = 'alert-msg alert-success';
+        alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> Formulario enviado correctamente.';
+        alertBox.style.display = 'block';
+
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3500);
+    }
+
+    function handleFormReset(form) {
+        const alertBox = form.querySelector('.alert-msg');
+        alertBox.className = 'alert-msg alert-reset';
+        alertBox.innerHTML = '<i class="fa-solid fa-circle-info"></i> Formulario limpiado.';
+        alertBox.style.display = 'block';
+
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3500);
+    }
+</script>
+
+</body>
+</html>
